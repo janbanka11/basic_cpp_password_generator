@@ -1,17 +1,32 @@
 #include <iostream>
+#include <ctime>
 
 std::string gen_password(const size_t& length)
 {
 	std::string password;
-	for(int i = 0; i < length; i++)
+	char c;
+	bool isalphanumeric = false;
+	for(auto i = 0; i < length; i++)
 	{
-		password.push_back(rand() % 93 + 34);
+		while(!isalphanumeric)
+		{
+			c = rand() % 90 + 34;
+			if (isalnum(c)) isalphanumeric = true;
+		}
+		password.push_back(c);
+		isalphanumeric = false;
 	}
 	return password;
 }
 
 int main()
 {
-	const size_t str_len = 10;
-	std::cout << gen_password(str_len);
+	srand(time(nullptr));
+	auto pass_length = 0;
+	auto size = 0;
+	std::cout << "Choose the password length :";
+	std::cin >> pass_length;
+	std::cout << "\nYour password is : " << gen_password(pass_length);
+	
+	return 0;
 }
